@@ -42,7 +42,7 @@ namespace Client
 
 
 
-        Socket serverSocket = null;
+        Socket clientSocket = null;
 
         private static byte[] result = new byte[1024];
 
@@ -54,9 +54,9 @@ namespace Client
 
                 int port = int.Parse(textBoxPort.Text);
 
-                serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-                serverSocket.Connect(new IPEndPoint(ip, port));
+                clientSocket.Connect(new IPEndPoint(ip, port));
             }
             catch (Exception ex)
             {
@@ -73,16 +73,16 @@ namespace Client
                 {
                     try
                     {
-                        serverSocket.Receive(result, 0, 1024, SocketFlags.None);
+                        clientSocket.Receive(result, 0, 1024, SocketFlags.None);
 
-                        var s = (Encoding.Unicode.GetString(result) + " - From Server");
+                        var s = (Encoding.UTF8.GetString(result) + " - From Server");
 
                         listBoxMsg.Items.Add(s.Replace("\0", ""));
                     }
                     catch (Exception ex)
                     {
                         labelInfo.Text = ex.Message;
-                        serverSocket = null;
+                        clientSocket = null;
                         buttonConnect.Enabled = true;
                         return;
                     }
@@ -102,9 +102,9 @@ namespace Client
         private void button2_Click(object sender, EventArgs e)
         {
 
-            var msg = Encoding.Unicode.GetBytes(textBoxMsg.Text);
+            var msg = Encoding.UTF8.GetBytes(textBoxMsg.Text);
 
-            serverSocket.BeginSend(msg, 0, msg.Length, SocketFlags.None, null, null);
+            clientSocket.BeginSend(msg, 0, msg.Length, SocketFlags.None, null, null);
 
         }
 

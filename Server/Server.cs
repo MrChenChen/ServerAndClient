@@ -87,36 +87,42 @@ namespace Server
 
                         byte[] recvBytes = new byte[1024];
 
-                        while (true)
+
+                        try
                         {
-                            try
+                            while (true)
                             {
+
                                 recvBytes = new byte[1024];
 
                                 client.Receive(recvBytes);
 
-                                string t = Encoding.Unicode.GetString(recvBytes).Replace("\0", " ").TrimEnd();
+                                if (recvBytes[0] == 0) throw new Exception();
+
+                                string t = Encoding.UTF8.GetString(recvBytes).Replace("\0", " ").TrimEnd();
 
                                 listBoxMegs.Items.Add(t + " - From " + tag.ToString() + " 号");
+
+                                Thread.Sleep(1);
                             }
-                            catch
+                        }
+                        catch
+                        {
+                            labelInfo.Text = tag + " 号远程关闭了客户端";
+
+                            for (int i = 0; i < listBoxClient.Items.Count; i++)
                             {
-                                labelInfo.Text = tag + " 号远程关闭了客户端";
-
-                                for (int i = 0; i < listBoxClient.Items.Count; i++)
+                                if (listBoxClient.Items[i].ToString() == (tag + " 号客户端接入"))
                                 {
-                                    if (listBoxClient.Items[i].ToString() == (tag + " 号服务器接入"))
-                                    {
-                                        listBoxClient.Items.RemoveAt(i);
-                                        list_socket.RemoveAt(i);
-                                        break;
-                                    }
+                                    listBoxClient.Items.RemoveAt(i);
+                                    list_socket.RemoveAt(i);
+                                    break;
                                 }
-
-                                return;
                             }
 
                         }
+
+
                     }))
                     { IsBackground = true }.Start();
                 }
@@ -131,11 +137,24 @@ namespace Server
         //向指定客户端发送消息
         private void button2_Click(object sender, EventArgs e)
         {
-
-            if (listBoxClient.Items.Count > 0)
+            if (!checkBoxSendAll.Checked)
             {
-                list_socket[listBoxClient.SelectedIndex].Send(Encoding.Unicode.GetBytes(textBoxMsg.Text));
+                if (listBoxClient.Items.Count > 0)
+                {
+                    list_socket[listBoxClient.SelectedIndex].Send(Encoding.UTF8.GetBytes(textBoxMsg.Text));
+                }
             }
+            else
+            {
+                if (listBoxClient.Items.Count > 0)
+                {
+                    foreach (var item in list_socket)
+                    {
+                        item.Send(Encoding.UTF8.GetBytes(textBoxMsg.Text));
+                    }
+                }
+            }
+
 
         }
 

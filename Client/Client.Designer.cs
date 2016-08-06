@@ -93,10 +93,10 @@
             // 
             // textBoxMsg
             // 
-            this.textBoxMsg.Location = new System.Drawing.Point(92, 146);
+            this.textBoxMsg.Location = new System.Drawing.Point(93, 146);
             this.textBoxMsg.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxMsg.Name = "textBoxMsg";
-            this.textBoxMsg.Size = new System.Drawing.Size(235, 28);
+            this.textBoxMsg.Size = new System.Drawing.Size(234, 28);
             this.textBoxMsg.TabIndex = 8;
             // 
             // buttonSendMsg

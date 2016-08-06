@@ -44,6 +44,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.linkLabelClear = new System.Windows.Forms.LinkLabel();
             this.labelIP = new System.Windows.Forms.Label();
+            this.checkBoxSendAll = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonOpenServer
@@ -64,7 +65,7 @@
             this.textBoxIP.Name = "textBoxIP";
             this.textBoxIP.Size = new System.Drawing.Size(158, 28);
             this.textBoxIP.TabIndex = 1;
-            this.textBoxIP.Text = "127.0.0.1";
+            this.textBoxIP.Text = "192.168.1.106";
             // 
             // label1
             // 
@@ -136,7 +137,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(197, 50);
             this.button2.TabIndex = 8;
-            this.button2.Text = "向指定客户端发送消息";
+            this.button2.Text = "发送消息";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -188,11 +189,22 @@
             this.labelIP.TabIndex = 13;
             this.labelIP.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.labelIP_MouseDoubleClick);
             // 
+            // checkBoxSendAll
+            // 
+            this.checkBoxSendAll.AutoSize = true;
+            this.checkBoxSendAll.Location = new System.Drawing.Point(21, 127);
+            this.checkBoxSendAll.Name = "checkBoxSendAll";
+            this.checkBoxSendAll.Size = new System.Drawing.Size(70, 22);
+            this.checkBoxSendAll.TabIndex = 14;
+            this.checkBoxSendAll.Text = "群发";
+            this.checkBoxSendAll.UseVisualStyleBackColor = true;
+            // 
             // Server
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(570, 542);
+            this.Controls.Add(this.checkBoxSendAll);
             this.Controls.Add(this.textBoxMsg);
             this.Controls.Add(this.labelIP);
             this.Controls.Add(this.linkLabelClear);
@@ -236,6 +248,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.LinkLabel linkLabelClear;
         private System.Windows.Forms.Label labelIP;
+        private System.Windows.Forms.CheckBox checkBoxSendAll;
     }
 }
 
