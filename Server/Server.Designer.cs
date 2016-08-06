@@ -44,12 +44,12 @@
             this.label5 = new System.Windows.Forms.Label();
             this.linkLabelClear = new System.Windows.Forms.LinkLabel();
             this.labelIP = new System.Windows.Forms.Label();
-            this.checkBoxAll = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonOpenServer
             // 
             this.buttonOpenServer.Location = new System.Drawing.Point(351, 14);
+            this.buttonOpenServer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonOpenServer.Name = "buttonOpenServer";
             this.buttonOpenServer.Size = new System.Drawing.Size(197, 77);
             this.buttonOpenServer.TabIndex = 0;
@@ -59,9 +59,10 @@
             // 
             // textBoxIP
             // 
-            this.textBoxIP.Location = new System.Drawing.Point(86, 14);
+            this.textBoxIP.Location = new System.Drawing.Point(174, 14);
+            this.textBoxIP.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxIP.Name = "textBoxIP";
-            this.textBoxIP.Size = new System.Drawing.Size(247, 28);
+            this.textBoxIP.Size = new System.Drawing.Size(158, 28);
             this.textBoxIP.TabIndex = 1;
             this.textBoxIP.Text = "127.0.0.1";
             // 
@@ -76,16 +77,17 @@
             // 
             // textBoxPort
             // 
-            this.textBoxPort.Location = new System.Drawing.Point(86, 63);
+            this.textBoxPort.Location = new System.Drawing.Point(174, 62);
+            this.textBoxPort.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.Size = new System.Drawing.Size(247, 28);
+            this.textBoxPort.Size = new System.Drawing.Size(158, 28);
             this.textBoxPort.TabIndex = 1;
             this.textBoxPort.Text = "2000";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 69);
+            this.label2.Location = new System.Drawing.Point(18, 68);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(62, 18);
             this.label2.TabIndex = 2;
@@ -96,8 +98,9 @@
             this.listBoxClient.FormattingEnabled = true;
             this.listBoxClient.ItemHeight = 18;
             this.listBoxClient.Location = new System.Drawing.Point(351, 215);
+            this.listBoxClient.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBoxClient.Name = "listBoxClient";
-            this.listBoxClient.Size = new System.Drawing.Size(197, 274);
+            this.listBoxClient.Size = new System.Drawing.Size(198, 274);
             this.listBoxClient.TabIndex = 3;
             this.listBoxClient.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxClient_MouseDoubleClick);
             // 
@@ -121,6 +124,7 @@
             // textBoxMsg
             // 
             this.textBoxMsg.Location = new System.Drawing.Point(101, 124);
+            this.textBoxMsg.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxMsg.Name = "textBoxMsg";
             this.textBoxMsg.Size = new System.Drawing.Size(230, 28);
             this.textBoxMsg.TabIndex = 7;
@@ -128,10 +132,11 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(351, 110);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(197, 51);
+            this.button2.Size = new System.Drawing.Size(197, 50);
             this.button2.TabIndex = 8;
-            this.button2.Text = "向指定服务器发送消息";
+            this.button2.Text = "向指定客户端发送消息";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -149,6 +154,7 @@
             this.listBoxMegs.FormattingEnabled = true;
             this.listBoxMegs.ItemHeight = 18;
             this.listBoxMegs.Location = new System.Drawing.Point(84, 214);
+            this.listBoxMegs.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBoxMegs.Name = "listBoxMegs";
             this.listBoxMegs.Size = new System.Drawing.Size(249, 274);
             this.listBoxMegs.TabIndex = 10;
@@ -182,23 +188,12 @@
             this.labelIP.TabIndex = 13;
             this.labelIP.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.labelIP_MouseDoubleClick);
             // 
-            // checkBoxAll
-            // 
-            this.checkBoxAll.AutoSize = true;
-            this.checkBoxAll.Location = new System.Drawing.Point(15, 128);
-            this.checkBoxAll.Name = "checkBoxAll";
-            this.checkBoxAll.Size = new System.Drawing.Size(88, 22);
-            this.checkBoxAll.TabIndex = 14;
-            this.checkBoxAll.Text = "群消息";
-            this.checkBoxAll.UseVisualStyleBackColor = true;
-            // 
             // Server
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(570, 543);
+            this.ClientSize = new System.Drawing.Size(570, 542);
             this.Controls.Add(this.textBoxMsg);
-            this.Controls.Add(this.checkBoxAll);
             this.Controls.Add(this.labelIP);
             this.Controls.Add(this.linkLabelClear);
             this.Controls.Add(this.label5);
@@ -215,6 +210,7 @@
             this.Controls.Add(this.buttonOpenServer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.Name = "Server";
             this.Text = "未开启的服务器";
@@ -240,7 +236,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.LinkLabel linkLabelClear;
         private System.Windows.Forms.Label labelIP;
-        private System.Windows.Forms.CheckBox checkBoxAll;
     }
 }
 

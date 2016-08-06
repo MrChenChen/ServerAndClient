@@ -35,7 +35,7 @@
             this.textBoxIP = new System.Windows.Forms.TextBox();
             this.buttonConnect = new System.Windows.Forms.Button();
             this.textBoxMsg = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonSendMsg = new System.Windows.Forms.Button();
             this.listBoxMsg = new System.Windows.Forms.ListBox();
             this.labelInfo = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -46,16 +46,17 @@
             // 
             // textBoxPort
             // 
-            this.textBoxPort.Location = new System.Drawing.Point(93, 81);
+            this.textBoxPort.Location = new System.Drawing.Point(165, 80);
+            this.textBoxPort.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.Size = new System.Drawing.Size(209, 28);
+            this.textBoxPort.Size = new System.Drawing.Size(162, 28);
             this.textBoxPort.TabIndex = 3;
             this.textBoxPort.Text = "2000";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(25, 87);
+            this.label2.Location = new System.Drawing.Point(25, 86);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(62, 18);
             this.label2.TabIndex = 5;
@@ -72,46 +73,51 @@
             // 
             // textBoxIP
             // 
-            this.textBoxIP.Location = new System.Drawing.Point(94, 20);
+            this.textBoxIP.Location = new System.Drawing.Point(165, 20);
+            this.textBoxIP.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxIP.Name = "textBoxIP";
-            this.textBoxIP.Size = new System.Drawing.Size(209, 28);
+            this.textBoxIP.Size = new System.Drawing.Size(162, 28);
             this.textBoxIP.TabIndex = 4;
             this.textBoxIP.Text = "127.0.0.1";
             // 
             // buttonConnect
             // 
-            this.buttonConnect.Location = new System.Drawing.Point(337, 33);
+            this.buttonConnect.Location = new System.Drawing.Point(358, 32);
+            this.buttonConnect.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonConnect.Name = "buttonConnect";
-            this.buttonConnect.Size = new System.Drawing.Size(175, 61);
+            this.buttonConnect.Size = new System.Drawing.Size(176, 61);
             this.buttonConnect.TabIndex = 7;
-            this.buttonConnect.Text = "连接到服务器";
+            this.buttonConnect.Text = "连接";
             this.buttonConnect.UseVisualStyleBackColor = true;
             this.buttonConnect.Click += new System.EventHandler(this.button1_Click);
             // 
             // textBoxMsg
             // 
-            this.textBoxMsg.Location = new System.Drawing.Point(28, 148);
+            this.textBoxMsg.Location = new System.Drawing.Point(92, 146);
+            this.textBoxMsg.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxMsg.Name = "textBoxMsg";
-            this.textBoxMsg.Size = new System.Drawing.Size(275, 28);
+            this.textBoxMsg.Size = new System.Drawing.Size(235, 28);
             this.textBoxMsg.TabIndex = 8;
             // 
-            // button2
+            // buttonSendMsg
             // 
-            this.button2.Location = new System.Drawing.Point(337, 137);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(175, 48);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "向服务器发送消息";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.buttonSendMsg.Location = new System.Drawing.Point(358, 137);
+            this.buttonSendMsg.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonSendMsg.Name = "buttonSendMsg";
+            this.buttonSendMsg.Size = new System.Drawing.Size(176, 48);
+            this.buttonSendMsg.TabIndex = 9;
+            this.buttonSendMsg.Text = "向服务器发送消息";
+            this.buttonSendMsg.UseVisualStyleBackColor = true;
+            this.buttonSendMsg.Click += new System.EventHandler(this.button2_Click);
             // 
             // listBoxMsg
             // 
             this.listBoxMsg.FormattingEnabled = true;
             this.listBoxMsg.ItemHeight = 18;
             this.listBoxMsg.Location = new System.Drawing.Point(28, 229);
+            this.listBoxMsg.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBoxMsg.Name = "listBoxMsg";
-            this.listBoxMsg.Size = new System.Drawing.Size(484, 256);
+            this.listBoxMsg.Size = new System.Drawing.Size(507, 256);
             this.listBoxMsg.TabIndex = 10;
             // 
             // labelInfo
@@ -134,7 +140,7 @@
             // linkLabelClear
             // 
             this.linkLabelClear.AutoSize = true;
-            this.linkLabelClear.Location = new System.Drawing.Point(468, 198);
+            this.linkLabelClear.Location = new System.Drawing.Point(488, 198);
             this.linkLabelClear.Name = "linkLabelClear";
             this.linkLabelClear.Size = new System.Drawing.Size(44, 18);
             this.linkLabelClear.TabIndex = 15;
@@ -154,7 +160,7 @@
             // labelIP
             // 
             this.labelIP.AutoSize = true;
-            this.labelIP.Location = new System.Drawing.Point(390, 504);
+            this.labelIP.Location = new System.Drawing.Point(410, 504);
             this.labelIP.Name = "labelIP";
             this.labelIP.Size = new System.Drawing.Size(0, 18);
             this.labelIP.TabIndex = 16;
@@ -163,15 +169,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(527, 538);
+            this.ClientSize = new System.Drawing.Size(565, 544);
+            this.Controls.Add(this.textBoxMsg);
             this.Controls.Add(this.labelIP);
             this.Controls.Add(this.linkLabelClear);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.listBoxMsg);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.textBoxMsg);
+            this.Controls.Add(this.buttonSendMsg);
             this.Controls.Add(this.buttonConnect);
             this.Controls.Add(this.textBoxPort);
             this.Controls.Add(this.label2);
@@ -179,6 +185,7 @@
             this.Controls.Add(this.textBoxIP);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.Name = "Client";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
@@ -196,7 +203,7 @@
         private System.Windows.Forms.TextBox textBoxIP;
         private System.Windows.Forms.Button buttonConnect;
         private System.Windows.Forms.TextBox textBoxMsg;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonSendMsg;
         private System.Windows.Forms.ListBox listBoxMsg;
         private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.Label label3;

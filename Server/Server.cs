@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,7 @@ using System.Threading;
 using System.Windows.Forms;
 
 
+
 namespace Server
 {
     public partial class Server : Form
@@ -21,6 +23,11 @@ namespace Server
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
             GetAddressIP();
+
+
+            label2.Text = "Binding Port:";
+
+
         }
 
         void GetAddressIP()
@@ -40,13 +47,8 @@ namespace Server
 
         List<Socket> list_socket = new List<Socket>();
 
-        UdpClient udp;
-
-        IPEndPoint udp_ip;
-
         private void button1_Click(object sender, EventArgs e)
         {
-
 
             int port = int.Parse(textBoxPort.Text);
             string host = textBoxIP.Text;
@@ -60,7 +62,8 @@ namespace Server
             s.Bind(ipe);//绑定EndPoint对像（2000端口和ip地址）
             s.Listen(0);//开始监听
 
-            labelInfo.Text = "开启服务器成功";
+            labelInfo.Text = "创建服务器成功";
+            Text = "创建服务器成功";
 
             buttonOpenServer.Enabled = false;
 
@@ -72,15 +75,13 @@ namespace Server
 
                     list_socket.Add(tempClient);
 
-                    tempClient.Send(Encoding.Unicode.GetBytes("#_" + (list_socket.Count - 1).ToString()));
-
                     new Thread(new ThreadStart(() =>
                     {
                         var client = list_socket[list_socket.Count - 1];
 
                         string tag = (list_socket.Count - 1).ToString();
 
-                        listBoxClient.Items.Add(tag + " 号服务器接入");
+                        listBoxClient.Items.Add(tag + " 号客户端接入");
 
                         listBoxClient.SelectedIndex = listBoxClient.Items.Count - 1;
 
@@ -124,29 +125,16 @@ namespace Server
             { IsBackground = true }.Start();
 
 
-            udp = new UdpClient();
-
-            udp.Connect(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 2000));
 
         }
 
         //向指定客户端发送消息
         private void button2_Click(object sender, EventArgs e)
         {
-            if (checkBoxAll.Checked)
+
+            if (listBoxClient.Items.Count > 0)
             {
-
-                var b = Encoding.Unicode.GetBytes(textBoxMsg.Text);
-
-                udp.Send(b, b.Length,new IPEndPoint(IPAddress.Parse("127.0.0.1"), 2000));
-
-            }
-            else
-            {
-                if (listBoxClient.Items.Count > 0)
-                {
-                    list_socket[listBoxClient.SelectedIndex].Send(Encoding.Unicode.GetBytes(textBoxMsg.Text));
-                }
+                list_socket[listBoxClient.SelectedIndex].Send(Encoding.Unicode.GetBytes(textBoxMsg.Text));
             }
 
         }
@@ -197,5 +185,6 @@ namespace Server
 
             }
         }
+
     }
 }
