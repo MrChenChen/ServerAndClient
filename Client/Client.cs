@@ -44,7 +44,7 @@ namespace Client
 
         Socket clientSocket = null;
 
-        private static byte[] result = new byte[1024];
+        private const int _maxCount = 1024;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -57,6 +57,7 @@ namespace Client
                 clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
                 clientSocket.Connect(new IPEndPoint(ip, port));
+
             }
             catch (Exception ex)
             {
@@ -65,28 +66,37 @@ namespace Client
             }
 
 
-
-
             new Thread(() =>
             {
                 while (true)
                 {
+                    byte[] buffer = new byte[_maxCount];
+                    int length = 0;
                     try
                     {
-                        clientSocket.Receive(result, 0, 1024, SocketFlags.None);
+                        do
+                        {
+                            length = clientSocket.Available;
+                            Thread.Sleep(5);
+                        } while (length < clientSocket.Available);
 
-                        var s = (Encoding.UTF8.GetString(result) + " - From Server");
+                        if (length > 0)
+                        {
+                            buffer = new byte[length];
 
-                        listBoxMsg.Items.Add(s.Replace("\0", ""));
+                            clientSocket.Receive(buffer, 0, length, SocketFlags.None);
+
+                            var s = (Encoding.ASCII.GetString(buffer));
+
+                            richTextBox.AppendText(s + Environment.NewLine);
+                        }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
-                        labelInfo.Text = ex.Message;
-                        clientSocket = null;
-                        buttonConnect.Enabled = true;
-                        return;
-                    }
+                        Text = "已断开连接";
 
+                        labelInfo.Text = "已从服务器断开连接";
+                    }
                 }
 
             })
@@ -102,7 +112,7 @@ namespace Client
         private void button2_Click(object sender, EventArgs e)
         {
 
-            var msg = Encoding.UTF8.GetBytes(textBoxMsg.Text);
+            var msg = Encoding.ASCII.GetBytes(textBoxMsg.Text);
 
             clientSocket.BeginSend(msg, 0, msg.Length, SocketFlags.None, null, null);
 
@@ -110,7 +120,12 @@ namespace Client
 
         private void linkLabelClear_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            listBoxMsg.Items.Clear();
+            richTextBox.Clear();
+        }
+
+        private void linkLabelSave_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            File.WriteAllText(DateTime.Now.ToString("Client - yyyyMMdd-HHmmssfff") + ".txt", richTextBox.Text);
         }
     }
 }

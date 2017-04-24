@@ -101,7 +101,7 @@ namespace Server
 
                                 string t = Encoding.UTF8.GetString(recvBytes).Replace("\0", " ").TrimEnd();
 
-                                listBoxMegs.Items.Add(t + " - From " + tag.ToString() + " 号");
+                                richTextBox.AppendText(t + " - From " + tag.ToString() + " 号" + Environment.NewLine);
 
                                 Thread.Sleep(1);
                             }
@@ -154,13 +154,11 @@ namespace Server
                     }
                 }
             }
-
-
         }
 
         private void linkLabelClear_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            listBoxMegs.Items.Clear();
+            richTextBox.Clear();
         }
 
         private void labelIP_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -205,5 +203,9 @@ namespace Server
             }
         }
 
+        private void linkLabelSave_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            File.WriteAllText(DateTime.Now.ToString("Server - yyyyMMdd-HHmmssfff") + ".txt", richTextBox.Text);
+        }
     }
 }
