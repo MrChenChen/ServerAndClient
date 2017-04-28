@@ -46,6 +46,14 @@ namespace Client
 
         private const int _maxCount = 1024;
 
+        List<byte> ReceiveFile = new List<byte>(10000);
+
+        bool IsRecrvieFile = false;
+
+        long FileLenght = 0;
+
+        string ReceiveFilename = String.Empty;
+
         private void button1_Click(object sender, EventArgs e)
         {
             try
@@ -70,7 +78,7 @@ namespace Client
             {
                 while (true)
                 {
-                    byte[] buffer = new byte[_maxCount];
+                    byte[] buffer = null;
                     int length = 0;
                     try
                     {
@@ -86,9 +94,54 @@ namespace Client
 
                             clientSocket.Receive(buffer, 0, length, SocketFlags.None);
 
-                            var s = (Encoding.ASCII.GetString(buffer));
+                            var s = (Encoding.Unicode.GetString(buffer));
 
-                            richTextBox.AppendText(s + Environment.NewLine);
+                            if (IsRecrvieFile)
+                            {
+                                ReceiveFile.AddRange(buffer);
+
+                                if (FileLenght == ReceiveFile.Count)
+                                {
+                                    File.WriteAllBytes(ReceiveFilename, ReceiveFile.ToArray());
+                                    IsRecrvieFile = false;
+                                    FileLenght = 0;
+                                    MessageBox.Show(this, "接收文件完成，文件大小： " + ReceiveFile.Count + Environment.NewLine + "文件保存在当前路径 ： " + ReceiveFilename);
+                                    ReceiveFile.Clear();
+                                    ReceiveFilename = string.Empty;
+                                }
+                            }
+                            else
+                            {
+                                if (s.First() == 0x02 && s.Last() == 0x03)
+                                {
+                                    try
+                                    {
+                                        var temp = s.Substring(1, s.Length - 2);
+
+                                        ReceiveFilename = temp.Split('|')[0];
+
+                                        var len = int.Parse(temp.Split('|')[1]);
+
+                                        if (len > 0)
+                                        {
+                                            FileLenght = len;
+                                            IsRecrvieFile = true;
+
+                                            richTextBox.AppendText(string.Format("开始接受文件（文件名称：{0}，文件大小： {1}）...", ReceiveFilename, len));
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MessageBox.Show(ex.Message);
+                                    }
+                                }
+                                else
+                                {
+                                    richTextBox.AppendText(s + Environment.NewLine);
+                                }
+                            }
+
+
                         }
                     }
                     catch (Exception)

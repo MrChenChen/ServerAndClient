@@ -176,28 +176,32 @@ namespace Server
 
                 openfile.InitialDirectory = @"D:\";
 
+                openfile.Filter = "所有文件|*.*";
+
                 openfile.Multiselect = false;
 
                 var socket = list_socket[listBoxClient.SelectedIndex];
 
                 if (openfile.ShowDialog() == DialogResult.OK)
                 {
-                    FileStream fs = new FileStream(openfile.FileName, FileMode.Open);
+                    var fileinfo = new FileInfo(openfile.FileName);
+
+                    richTextBox.AppendText(string.Format("开始发送文件（文件名称：{0}，文件大小： {1}）...", fileinfo.Name, fileinfo.Length));
 
                     labelInfo.Text = (Environment.TickCount / 1000.0).ToString();
 
-                    string msg = "&" + fs.Length.ToString() + "#";
+                    string msg = Encoding.ASCII.GetString(new byte[] { 0x02 })
+                        + fileinfo.Name
+                        + "|"
+                        + fileinfo.Length
+                        + Encoding.ASCII.GetString(new byte[] { 0x03 });
+
                     socket.Send(Encoding.Unicode.GetBytes(msg));
 
+                    Thread.Sleep(300);
 
-                    //设置缓冲区为1024byte
-                    byte[] buff = new byte[fs.Length];
-                    fs.Read(buff, 0, (int)fs.Length);
-                    socket.Send(buff, 0, (int)fs.Length, SocketFlags.None);
+                    socket.Send(File.ReadAllBytes(openfile.FileName));
 
-
-                    msg = "#" + new FileInfo(openfile.FileName).Name + "&";
-                    socket.Send(Encoding.Unicode.GetBytes(msg));
                 }
 
             }
