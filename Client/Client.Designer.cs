@@ -43,14 +43,15 @@
             this.labelIP = new System.Windows.Forms.Label();
             this.linkLabelSave = new System.Windows.Forms.LinkLabel();
             this.richTextBox = new System.Windows.Forms.RichTextBox();
+            this.buttonSendFile = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBoxPort
             // 
-            this.textBoxPort.Location = new System.Drawing.Point(110, 57);
+            this.textBoxPort.Location = new System.Drawing.Point(91, 57);
             this.textBoxPort.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.Size = new System.Drawing.Size(109, 20);
+            this.textBoxPort.Size = new System.Drawing.Size(128, 20);
             this.textBoxPort.TabIndex = 3;
             this.textBoxPort.Text = "5000";
             // 
@@ -76,19 +77,19 @@
             // 
             // textBoxIP
             // 
-            this.textBoxIP.Location = new System.Drawing.Point(110, 14);
+            this.textBoxIP.Location = new System.Drawing.Point(91, 14);
             this.textBoxIP.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.textBoxIP.Name = "textBoxIP";
-            this.textBoxIP.Size = new System.Drawing.Size(109, 20);
+            this.textBoxIP.Size = new System.Drawing.Size(128, 20);
             this.textBoxIP.TabIndex = 4;
             this.textBoxIP.Text = "127.0.0.1";
             // 
             // buttonConnect
             // 
-            this.buttonConnect.Location = new System.Drawing.Point(239, 23);
+            this.buttonConnect.Location = new System.Drawing.Point(235, 17);
             this.buttonConnect.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.buttonConnect.Name = "buttonConnect";
-            this.buttonConnect.Size = new System.Drawing.Size(117, 44);
+            this.buttonConnect.Size = new System.Drawing.Size(130, 53);
             this.buttonConnect.TabIndex = 7;
             this.buttonConnect.Text = "连接";
             this.buttonConnect.UseVisualStyleBackColor = true;
@@ -96,7 +97,7 @@
             // 
             // textBoxMsg
             // 
-            this.textBoxMsg.Location = new System.Drawing.Point(18, 105);
+            this.textBoxMsg.Location = new System.Drawing.Point(18, 100);
             this.textBoxMsg.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.textBoxMsg.Name = "textBoxMsg";
             this.textBoxMsg.Size = new System.Drawing.Size(201, 20);
@@ -104,10 +105,10 @@
             // 
             // buttonSendMsg
             // 
-            this.buttonSendMsg.Location = new System.Drawing.Point(239, 98);
+            this.buttonSendMsg.Location = new System.Drawing.Point(268, 87);
             this.buttonSendMsg.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.buttonSendMsg.Name = "buttonSendMsg";
-            this.buttonSendMsg.Size = new System.Drawing.Size(117, 35);
+            this.buttonSendMsg.Size = new System.Drawing.Size(98, 45);
             this.buttonSendMsg.TabIndex = 9;
             this.buttonSendMsg.Text = "向服务器发送消息";
             this.buttonSendMsg.UseVisualStyleBackColor = true;
@@ -117,7 +118,7 @@
             // 
             this.labelInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelInfo.AutoSize = true;
-            this.labelInfo.Location = new System.Drawing.Point(60, 364);
+            this.labelInfo.Location = new System.Drawing.Point(60, 370);
             this.labelInfo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelInfo.Name = "labelInfo";
             this.labelInfo.Size = new System.Drawing.Size(0, 13);
@@ -127,7 +128,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 364);
+            this.label3.Location = new System.Drawing.Point(15, 370);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(43, 13);
@@ -150,7 +151,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(17, 143);
+            this.label5.Location = new System.Drawing.Point(11, 144);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(79, 13);
@@ -161,7 +162,7 @@
             // 
             this.labelIP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelIP.AutoSize = true;
-            this.labelIP.Location = new System.Drawing.Point(281, 365);
+            this.labelIP.Location = new System.Drawing.Point(286, 370);
             this.labelIP.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelIP.Name = "labelIP";
             this.labelIP.Size = new System.Drawing.Size(0, 13);
@@ -186,18 +187,29 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox.BackColor = System.Drawing.Color.White;
             this.richTextBox.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.richTextBox.Location = new System.Drawing.Point(18, 170);
+            this.richTextBox.Location = new System.Drawing.Point(12, 170);
             this.richTextBox.Name = "richTextBox";
             this.richTextBox.ReadOnly = true;
-            this.richTextBox.Size = new System.Drawing.Size(338, 181);
+            this.richTextBox.Size = new System.Drawing.Size(353, 192);
             this.richTextBox.TabIndex = 18;
             this.richTextBox.Text = "";
+            // 
+            // buttonSendFile
+            // 
+            this.buttonSendFile.Location = new System.Drawing.Point(224, 97);
+            this.buttonSendFile.Name = "buttonSendFile";
+            this.buttonSendFile.Size = new System.Drawing.Size(36, 25);
+            this.buttonSendFile.TabIndex = 20;
+            this.buttonSendFile.Text = "...";
+            this.buttonSendFile.UseVisualStyleBackColor = true;
+            this.buttonSendFile.Click += new System.EventHandler(this.buttonSendFile_Click);
             // 
             // Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(377, 393);
+            this.Controls.Add(this.buttonSendFile);
             this.Controls.Add(this.richTextBox);
             this.Controls.Add(this.linkLabelSave);
             this.Controls.Add(this.textBoxMsg);
@@ -238,6 +250,7 @@
         private System.Windows.Forms.Label labelIP;
         private System.Windows.Forms.LinkLabel linkLabelSave;
         private System.Windows.Forms.RichTextBox richTextBox;
+        private System.Windows.Forms.Button buttonSendFile;
     }
 }
 

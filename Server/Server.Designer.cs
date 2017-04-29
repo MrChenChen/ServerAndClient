@@ -42,7 +42,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.linkLabelClear = new System.Windows.Forms.LinkLabel();
-            this.labelIP = new System.Windows.Forms.Label();
             this.checkBoxSendAll = new System.Windows.Forms.CheckBox();
             this.richTextBox = new System.Windows.Forms.RichTextBox();
             this.linkLabelSave = new System.Windows.Forms.LinkLabel();
@@ -61,10 +60,11 @@
             // 
             // textBoxIP
             // 
-            this.textBoxIP.Location = new System.Drawing.Point(116, 10);
+            this.textBoxIP.Location = new System.Drawing.Point(99, 10);
             this.textBoxIP.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.textBoxIP.Name = "textBoxIP";
-            this.textBoxIP.Size = new System.Drawing.Size(107, 20);
+            this.textBoxIP.ReadOnly = true;
+            this.textBoxIP.Size = new System.Drawing.Size(124, 20);
             this.textBoxIP.TabIndex = 1;
             this.textBoxIP.Text = "127.0.0.1";
             // 
@@ -80,10 +80,10 @@
             // 
             // textBoxPort
             // 
-            this.textBoxPort.Location = new System.Drawing.Point(116, 45);
+            this.textBoxPort.Location = new System.Drawing.Point(99, 45);
             this.textBoxPort.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.Size = new System.Drawing.Size(107, 20);
+            this.textBoxPort.Size = new System.Drawing.Size(124, 20);
             this.textBoxPort.TabIndex = 1;
             this.textBoxPort.Text = "5000";
             // 
@@ -102,17 +102,17 @@
             this.listBoxClient.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxClient.FormattingEnabled = true;
-            this.listBoxClient.Location = new System.Drawing.Point(231, 155);
+            this.listBoxClient.Location = new System.Drawing.Point(258, 155);
             this.listBoxClient.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.listBoxClient.Name = "listBoxClient";
-            this.listBoxClient.Size = new System.Drawing.Size(133, 199);
+            this.listBoxClient.Size = new System.Drawing.Size(106, 199);
             this.listBoxClient.TabIndex = 3;
             this.listBoxClient.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxClient_MouseDoubleClick);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 365);
+            this.label3.Location = new System.Drawing.Point(13, 366);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(43, 13);
@@ -122,7 +122,7 @@
             // labelInfo
             // 
             this.labelInfo.AutoSize = true;
-            this.labelInfo.Location = new System.Drawing.Point(68, 368);
+            this.labelInfo.Location = new System.Drawing.Point(68, 366);
             this.labelInfo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelInfo.Name = "labelInfo";
             this.labelInfo.Size = new System.Drawing.Size(0, 13);
@@ -138,10 +138,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(234, 79);
+            this.button2.Location = new System.Drawing.Point(234, 82);
             this.button2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(131, 36);
+            this.button2.Size = new System.Drawing.Size(130, 34);
             this.button2.TabIndex = 8;
             this.button2.Text = "发送消息";
             this.button2.UseVisualStyleBackColor = true;
@@ -151,7 +151,7 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(229, 130);
+            this.label4.Location = new System.Drawing.Point(255, 129);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(79, 13);
@@ -181,21 +181,10 @@
             this.linkLabelClear.Text = "清空";
             this.linkLabelClear.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelClear_LinkClicked);
             // 
-            // labelIP
-            // 
-            this.labelIP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelIP.AutoSize = true;
-            this.labelIP.Location = new System.Drawing.Point(279, 368);
-            this.labelIP.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelIP.Name = "labelIP";
-            this.labelIP.Size = new System.Drawing.Size(0, 13);
-            this.labelIP.TabIndex = 13;
-            this.labelIP.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.labelIP_MouseDoubleClick);
-            // 
             // checkBoxSendAll
             // 
             this.checkBoxSendAll.AutoSize = true;
-            this.checkBoxSendAll.Location = new System.Drawing.Point(14, 92);
+            this.checkBoxSendAll.Location = new System.Drawing.Point(13, 92);
             this.checkBoxSendAll.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxSendAll.Name = "checkBoxSendAll";
             this.checkBoxSendAll.Size = new System.Drawing.Size(50, 17);
@@ -213,7 +202,7 @@
             this.richTextBox.Location = new System.Drawing.Point(14, 155);
             this.richTextBox.Name = "richTextBox";
             this.richTextBox.ReadOnly = true;
-            this.richTextBox.Size = new System.Drawing.Size(206, 199);
+            this.richTextBox.Size = new System.Drawing.Size(239, 199);
             this.richTextBox.TabIndex = 15;
             this.richTextBox.Text = "";
             // 
@@ -238,7 +227,6 @@
             this.Controls.Add(this.richTextBox);
             this.Controls.Add(this.checkBoxSendAll);
             this.Controls.Add(this.textBoxMsg);
-            this.Controls.Add(this.labelIP);
             this.Controls.Add(this.linkLabelClear);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -275,7 +263,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.LinkLabel linkLabelClear;
-        private System.Windows.Forms.Label labelIP;
         private System.Windows.Forms.CheckBox checkBoxSendAll;
         private System.Windows.Forms.RichTextBox richTextBox;
         private System.Windows.Forms.LinkLabel linkLabelSave;

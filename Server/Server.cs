@@ -18,21 +18,37 @@ namespace Server
 {
     public partial class Server : Form
     {
+        object _lockKey = new object();
+
+        byte[] buffer = new byte[MAXLENGTH];
+
+        const int MAXLENGTH = 8192;
+
+        List<Socket> list_socket = new List<Socket>();
+
+
+
+        List<byte> ReceiveFile = new List<byte>(10000);
+
+        bool IsRecrvieFile = false;
+
+        long FileLenght = 0;
+
+        string ReceiveFilename = String.Empty;
+
+
+
         public Server()
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
             GetAddressIP();
 
-
             label2.Text = "Binding Port:";
-
-
         }
 
         void GetAddressIP()
         {
-            ///获取本地的IP地址
             string AddressIP = string.Empty;
             foreach (IPAddress _IPAddress in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
             {
@@ -41,28 +57,106 @@ namespace Server
                     AddressIP = _IPAddress.ToString();
                 }
             }
-            labelIP.Text = AddressIP;
+            textBoxIP.Text = AddressIP;
         }
 
 
-        List<Socket> list_socket = new List<Socket>();
+        private void ReceiveMessage(IAsyncResult ar)
+        {
+            var socket = ar.AsyncState as Socket;
+
+            try
+            {
+                lock (_lockKey)
+                {
+                    var length = socket.EndReceive(ar);
+
+                    listBoxClient.SelectedIndex = list_socket.IndexOf(socket);
+
+                    byte[] buffer_copy = new byte[length];
+
+                    Array.Copy(buffer, buffer_copy, length);
+
+                    HandleReceiveData(buffer_copy);
+
+                    socket.BeginReceive(buffer, 0, MAXLENGTH, SocketFlags.None, ReceiveMessage, socket);
+                }
+            }
+            catch (Exception ex)
+            {
+                labelInfo.Text = ex.Message;
+
+                listBoxClient.Items.RemoveAt(list_socket.IndexOf(socket));
+
+                list_socket.Remove(socket);
+            }
+
+        }
+
+        private void HandleReceiveData(byte[] buffer)
+        {
+            var s = (Encoding.Unicode.GetString(buffer));
+
+            if (IsRecrvieFile)
+            {
+                ReceiveFile.AddRange(buffer);
+
+                if (FileLenght == ReceiveFile.Count)
+                {
+                    File.WriteAllBytes(ReceiveFilename, ReceiveFile.ToArray());
+                    IsRecrvieFile = false;
+                    FileLenght = 0;
+                    MessageBox.Show(this, "接收文件完成，文件大小： " + ReceiveFile.Count + Environment.NewLine + "文件保存在当前路径 ： " + ReceiveFilename, "服务器");
+                    ReceiveFile.Clear();
+                    ReceiveFilename = string.Empty;
+                }
+            }
+            else
+            {
+                if (s.First() == 0x02 && s.Last() == 0x03)
+                {
+                    try
+                    {
+                        var temp = s.Substring(1, s.Length - 2);
+
+                        ReceiveFilename = temp.Split('|')[0];
+
+                        var len = int.Parse(temp.Split('|')[1]);
+
+                        if (len > 0)
+                        {
+                            FileLenght = len;
+                            IsRecrvieFile = true;
+
+                            richTextBox.AppendText(string.Format("开始接受文件（文件名称：{0}，文件大小： {1}）...", ReceiveFilename, len) + Environment.NewLine);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                else
+                {
+                    richTextBox.AppendText(s + Environment.NewLine);
+                }
+            }
+
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
 
             int port = int.Parse(textBoxPort.Text);
-            string host = textBoxIP.Text;
 
-            ///创建终结点（EndPoint）
-            IPAddress ip = IPAddress.Parse(host);//把ip地址字符串转换为IPAddress类型的实例
-            IPEndPoint ipe = new IPEndPoint(IPAddress.Any, port);//用指定的端口和ip初始化IPEndPoint类的新实例
+            IPEndPoint ipe = new IPEndPoint(IPAddress.Any, port);
 
-            ///创建socket并开始监听
-            Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);//创建一个socket对像，如果用udp协议，则要用SocketType.Dgram类型的套接字
-            s.Bind(ipe);//绑定EndPoint对像（2000端口和ip地址）
-            s.Listen(0);//开始监听
+            Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            s.Bind(ipe);
+            s.Listen(0);
 
             labelInfo.Text = "创建服务器成功";
+
             Text = "创建服务器成功";
 
             buttonOpenServer.Enabled = false;
@@ -81,67 +175,27 @@ namespace Server
 
                         string tag = (list_socket.Count - 1).ToString();
 
-                        listBoxClient.Items.Add(tag + " 号客户端接入");
+                        listBoxClient.Items.Add(tag + "  号客户端");
 
                         listBoxClient.SelectedIndex = listBoxClient.Items.Count - 1;
 
-                        byte[] recvBytes = new byte[1024];
-
-
-                        try
-                        {
-                            while (true)
-                            {
-
-                                recvBytes = new byte[1024];
-
-                                client.Receive(recvBytes);
-
-                                if (recvBytes[0] == 0) throw new Exception();
-
-                                string t = Encoding.UTF8.GetString(recvBytes).Replace("\0", " ").TrimEnd();
-
-                                richTextBox.AppendText(t + " - From " + tag.ToString() + " 号" + Environment.NewLine);
-
-                                Thread.Sleep(1);
-                            }
-                        }
-                        catch
-                        {
-                            labelInfo.Text = tag + " 号远程关闭了客户端";
-
-                            for (int i = 0; i < listBoxClient.Items.Count; i++)
-                            {
-                                if (listBoxClient.Items[i].ToString() == (tag + " 号客户端接入"))
-                                {
-                                    listBoxClient.Items.RemoveAt(i);
-                                    list_socket.RemoveAt(i);
-                                    break;
-                                }
-                            }
-
-                        }
-
+                        client.BeginReceive(buffer, 0, MAXLENGTH, SocketFlags.None, ReceiveMessage, client);
 
                     }))
                     { IsBackground = true }.Start();
                 }
-
             }))
             { IsBackground = true }.Start();
 
-
-
         }
 
-        //向指定客户端发送消息
         private void button2_Click(object sender, EventArgs e)
         {
             if (!checkBoxSendAll.Checked)
             {
                 if (listBoxClient.Items.Count > 0)
                 {
-                    list_socket[listBoxClient.SelectedIndex].Send(Encoding.UTF8.GetBytes(textBoxMsg.Text));
+                    list_socket[listBoxClient.SelectedIndex].Send(Encoding.Unicode.GetBytes(textBoxMsg.Text));
                 }
             }
             else
@@ -150,7 +204,7 @@ namespace Server
                 {
                     foreach (var item in list_socket)
                     {
-                        item.Send(Encoding.UTF8.GetBytes(textBoxMsg.Text));
+                        item.Send(Encoding.Unicode.GetBytes(textBoxMsg.Text));
                     }
                 }
             }
@@ -163,7 +217,7 @@ namespace Server
 
         private void labelIP_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            Clipboard.SetText(labelIP.Text);
+            Clipboard.SetText(textBoxIP.Text);
         }
 
         private void listBoxClient_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -173,8 +227,6 @@ namespace Server
                 OpenFileDialog openfile = new OpenFileDialog();
 
                 openfile.CheckFileExists = true;
-
-                openfile.InitialDirectory = @"D:\";
 
                 openfile.Filter = "所有文件|*.*";
 
@@ -211,5 +263,8 @@ namespace Server
         {
             File.WriteAllText(DateTime.Now.ToString("Server - yyyyMMdd-HHmmssfff") + ".txt", richTextBox.Text);
         }
+
+
+
     }
 }
